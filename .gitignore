@@ -1,0 +1,13 @@
+# logs
+logs
+*.log
+bin/
+*.exe
+
+# vscode
+
+# eclipse
+
+# IntelliJ
+
+/build/
