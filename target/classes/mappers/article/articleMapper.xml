@@ -6,4 +6,73 @@
   
  <mapper namespace="com.spring.mypage.mappers.article.ArticleMapper">
  	
- </mapper>
+ <insert id="create">
+        INSERT INTO tb_article (
+            article_no
+            , title
+            , content
+            , writer
+            , regdate
+            , viewcnt
+        ) VALUES (
+            #{article_no}
+            , #{title}
+            , #{content}
+            , #{writer}
+            , #{regDate}
+            , #{viewCnt}
+        )
+    </insert>
+
+    <select id="read" resultMap="ArticleResultMap">
+        SELECT
+            article_no
+            , title
+            , content
+            , writer
+            , regdate
+            , viewcnt
+        FROM
+            tb_article
+        WHERE article_no = #{article_no}
+    </select>
+
+    <update id="update">
+        UPDATE tb_article
+        SET
+            title = #{title}
+            , content = #{content}
+        WHERE
+            article_no = #{article_no}
+    </update>
+
+    <delete id="delete">
+        DELETE FROM tb_article
+        WHERE article_no = #{article_no}
+    </delete>
+
+    <select id="listAll" resultType="ArticleDTO">
+        <![CDATA[
+        SELECT
+            article_no,
+            title,
+            content,
+            writer,
+            regdate,
+            viewcnt
+        FROM tb_article
+        WHERE article_no > 0
+        ORDER BY article_no DESC, regdate DESC
+        ]]>
+    </select>
+
+    <resultMap id="ArticleResultMap" type="ArticleDTO">
+        <id property="article_no" column="article_no"/>
+        <result property="title" column="title" />
+        <result property="content" column="content" />
+        <result property="writer" column="writer" />
+        <result property="regDate" column="regdate" />
+        <result property="viewCnt" column="viewcnt" />
+    </resultMap>
+
+</mapper>
