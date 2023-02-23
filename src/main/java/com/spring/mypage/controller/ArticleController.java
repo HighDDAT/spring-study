@@ -70,6 +70,17 @@ public class ArticleController {
 	}
 	
 	// 수정 페이지 이동
+	@RequestMapping(value="/modify", method=RequestMethod.GET)
+	public String modifyGET(@RequestParam("article_no") int article_no,
+							Model model) throws Exception {
+		
+		logger.info("수정 페이지 이동중 GET");
+		model.addAttribute("article", articleService.read(article_no));
+		
+		return "/article/modify";
+	}
+	
+	// 수정 처리
 	@RequestMapping(value="/modify", method=RequestMethod.POST)
 	public String modifyPOST(ArticleDTO articleDTO,
 							RedirectAttributes redirectAttributes) throws Exception {

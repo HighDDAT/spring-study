@@ -47,6 +47,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
             <div class="card-body">
                 <div class="form-group">
+                    <label for="writer">작성자</label>
+                    <input class="form-control" id="writer" name="writer" placeholder="이름을 입력해주세요">
+                </div>
+                <div class="form-group">
                     <label for="title">제목</label>
                     <input class="form-control" id="title" name="title" placeholder="제목을 입력해주세요">
                 </div>
@@ -55,13 +59,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <textarea class="form-control" id="content" name="content" rows="30"
                               placeholder="내용을 입력해주세요" style="resize: none;"></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="writer">작성자</label>
-                    <input class="form-control" id="writer" name="writer">
-                </div>
             </div>
             <div class="card-footer">
-                <button type="button" class="btn btn-primary"><i class="fa fa-list"></i> 목록</button>
+                <button type="button" class="btn btn-primary"
+                		onclick = "location.href = '${cPath}/article/list'"><i class="fa fa-list"></i> 목록</button>
                 <div class="float-right">
                     <button type="reset" class="btn btn-warning"><i class="fa fa-reply"></i> 초기화</button>
                     <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> 저장</button>
@@ -70,64 +71,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
         </div>
     </form>
 </div>
-        <div class="row">
-          <div class="col-lg-6">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the card's
-                  content.
-                </p>
-
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
-            </div>
-
-            <div class="card card-primary card-outline">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
-
-                <p class="card-text">
-                  Some quick example text to build on the card title and make up the bulk of the card's
-                  content.
-                </p>
-                <a href="#" class="card-link">Card link</a>
-                <a href="#" class="card-link">Another link</a>
-              </div>
-            </div><!-- /.card -->
-          </div>
-          <!-- /.col-md-6 -->
-          <div class="col-lg-6">
-            <div class="card">
-              <div class="card-header">
-                <h5 class="m-0">Featured</h5>
-              </div>
-              <div class="card-body">
-                <h6 class="card-title">Special title treatment</h6>
-
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-
-            <div class="card card-primary card-outline">
-              <div class="card-header">
-                <h5 class="m-0">Featured</h5>
-              </div>
-              <div class="card-body">
-                <h6 class="card-title">Special title treatment</h6>
-
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-              </div>
-            </div>
-          </div>
-          <!-- /.col-md-6 -->
-        </div>
-        <!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->

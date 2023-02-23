@@ -1,3 +1,4 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
@@ -35,13 +36,13 @@
               <li class="nav-item">
                 <a href="${cPath}/article/write" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Write Page</p>
+                  <p>글쓰기</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="${cPath}/article/list" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>List Page</p>
+                  <p>글목록</p>
                 </a>
               </li>
             </ul>
