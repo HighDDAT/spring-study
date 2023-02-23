@@ -50,12 +50,48 @@ public class ArticleController {
 	}
 	
 	// 목록 페이지 이동
-	@RequestMapping(value="/read", method=RequestMethod.GET)
-	public String read(@RequestParam("article_no") int article_no,
-						Model model) throws Exception {
+	@RequestMapping(value="/list", method=RequestMethod.GET)
+	public String list(Model model) throws Exception {
+		
 		logger.info("목록 페이지 이동");
 		model.addAttribute("articles", articleService.listAll());
 		
 		return "/article/list";
 	}
+	
+	// 조회 페이지 이동
+	@RequestMapping(value="/read", method=RequestMethod.GET)
+	public String read(@RequestParam("article_no") int article_no,
+						Model model) throws Exception {
+		logger.info("조회 페이지 이동");
+		model.addAttribute("article", articleService.read(article_no));
+		
+		return "/article/read";
+	}
+	
+	// 수정 페이지 이동
+	@RequestMapping(value="/modify", method=RequestMethod.POST)
+	public String modifyPOST(ArticleDTO articleDTO,
+							RedirectAttributes redirectAttributes) throws Exception {
+		
+		logger.info("수정 처리 POST");
+		articleService.update(articleDTO);
+		redirectAttributes.addFlashAttribute("msg", "modSuccess");
+		
+		return "redirect:/article/list";
+	}
+	
+	// 삭제 처리
+	@RequestMapping(value="/remove", method=RequestMethod.POST)
+	public String remove(@RequestParam("article_no") int article_no,
+						RedirectAttributes redirectAttributes) throws Exception {
+		
+		logger.info("삭제 처리 POST");
+		articleService.delete(article_no);
+		redirectAttributes.addFlashAttribute("msg", "delSuccess");
+		
+		return "redirect:/article/list";
+	}
+	
+	
 }

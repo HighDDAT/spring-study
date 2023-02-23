@@ -5,16 +5,16 @@ This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html lang="en">
-<%@ include file = "include/head.jsp" %>
+<%@ include file = "../include/head.jsp" %>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
   <!-- Navbar -->
-  <%@ include file = "include/main_header.jsp" %>
+  <%@ include file = "../include/main_header.jsp" %>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <%@ include file = "include/left_column.jsp" %>
+  <%@ include file = "../include/left_column.jsp" %>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -39,14 +39,44 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Main content -->
     <div class="content">
       <div class="container-fluid">
+      <div class="col-lg-12">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">글제목 : ${article.title}</h3>
+        </div>
+        <div class="card-body" style="height: 700px">
+            ${article.content}
+        </div>
+        <div class="card-footer">
+            <div class="user-block">
+                <img class="img-circle img-bordered-sm" src="${cPath}/dist/img/user1-128x128.jpg" alt="user image">
+                <span class="username">
+                    <a href="#">${article.writer}</a>
+                </span>
+                <span class="description"><fmt:formatDate pattern="yyyy-MM-dd" value="${article.regDate}"/></span>
+            </div>
+        </div>
+        <div class="card-footer">
+            <form role="form" method="post">
+                <input type="hidden" name="article_no" value="${article.article_no}">
+            </form>
+            <button type="submit" class="btn btn-primary listBtn"><i class="fa fa-list"></i> 목록</button>
+            <div class="float-right">
+                <button type="submit" class="btn btn-warning modBtn"><i class="fa fa-edit"></i> 수정</button>
+                <button type="submit" class="btn btn-danger delBtn"><i class="fa fa-trash"></i> 삭제</button>
+            </div>
+        </div>
+    </div>
+</div>
         <div class="row">
           <div class="col-lg-6">
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">한글테스트</h5>
+                <h5 class="card-title">Card title</h5>
 
                 <p class="card-text">
-                  한글이 안써지는뎁쇼?
+                  Some quick example text to build on the card title and make up the bulk of the card's
+                  content.
                 </p>
 
                 <a href="#" class="card-link">Card link</a>
@@ -113,11 +143,35 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- /.control-sidebar -->
 
   <!-- Main Footer -->
-  <%@ include file = "include/main_footer.jsp" %>
+  <%@ include file = "../include/main_footer.jsp" %>
 </div>
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
-<%@ include file = "include/plugin_js.jsp" %>
+<%@ include file = "../include/plugin_js.jsp" %>
+
+<script>
+$(document).ready(function () {
+
+    var formObj = $("form[role='form']");
+    console.log(formObj);
+
+    $(".modBtn").on("click", function () {
+        formObj.attr("action", "${cPath}/article/modify");
+        formObj.attr("method", "get");
+        formObj.submit();
+    });
+
+    $(".delBtn").on("click", function () {
+       formObj.attr("action", "${cPath}/article/remove");
+       formObj.submit();
+    });
+
+    $(".listBtn").on("click", function () {
+       self.location = "${cPath}/article/list"
+    });
+
+});
+</script>
 </body>
 </html>

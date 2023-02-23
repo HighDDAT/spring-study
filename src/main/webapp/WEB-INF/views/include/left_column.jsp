@@ -39,7 +39,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="${path}/article/list" class="nav-link">
+                <a href="${cPath}/article/list" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>List Page</p>
                 </a>
