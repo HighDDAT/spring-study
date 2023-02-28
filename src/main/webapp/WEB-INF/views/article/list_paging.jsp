@@ -36,70 +36,74 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </div>
     <!-- /.content-header -->
 
-    <!-- Main content -->
-    <div class="content">
-      <div class="container-fluid">
-      <div class="col-lg-12">
-    <div class="card">
+<!-- Main content -->
+<div class="content">
+  <div class="container-fluid">
+    <div class="col-lg-12">
+      <div class="card">
         <div class="card-header">
-            <h3 class="card-title">게시글 목록</h3>
+          <h3 class="card-title">게시글 목록</h3>
         </div>
-        <div class="card-body">
-            <table class="table table-bordered">
-                <tbody>
+        <div class="card-body table-responsive p-0">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th style="width: 30px">#</th>
+                <th>제목</th>
+                <th style="width: 100px">작성자</th>
+                <th style="width: 150px">작성시간</th>
+                <th style="width: 60px">조회</th>
+              </tr>
+            </thead>
+            <tbody>
+              <c:forEach items="${articles}" var="article">
                 <tr>
-                    <th style="width: 30px">#</th>
-                    <th>제목</th>
-                    <th style="width: 100px">작성자</th>
-                    <th style="width: 150px">작성시간</th>
-                    <th style="width: 60px">조회</th>
+                  <td>${article.article_no}</td>
+                  <td><a
+                  href="${cPath}/article/read${pageMaker.makeQuery(pageMaker.section.page)}&article_no=${article.article_no}">${article.title}</a></td>
+                  <td>${article.writer}</td>
+                  <td><fmt:formatDate value="${article.regDate}"
+                  pattern="yyyy-MM-dd" /></td>
+                  <td><span class="badge bg-success">${article.viewCnt}</span></td>
                 </tr>
-                <c:forEach items="${articles}" var="article">
-                <tr>
-                    <td>${article.article_no}</td>
-                    <td><a href="${cPath}/article/read?article_no=${article.article_no}">${article.title}</a></td>
-                    <td>${article.writer}</td>
-                    <td><fmt:formatDate value="${article.regDate}" pattern="yyyy-MM-dd a HH:mm"/></td>
-                    <td><span class="badge bg-red">${article.viewCnt}</span></td>
-                </tr>
-                </c:forEach>
-                </tbody>
-            </table>
+              </c:forEach>
+            </tbody>
+          </table>
         </div>
-        
-		<div class="card-footer">
-		  <nav aria-label="Contacts Page Navigation">
-		    <ul class="pagination justify-content-center m-0">
-		      <c:if test="${pageMaker.prev}">
-		        <li class="page-item"><a class="page-link"
-		        href="${cPath}/article/listPaging?page=${pageMaker.startPage - 1}">이전</a></li>
-		      </c:if>
-		      <c:forEach begin="${pageMaker.startPage}"
-		        end="${pageMaker.endPage}" var="idx">
-		        <li class="page-item"
-		        <c:out value="${pageMaker.section.page == idx ? 'class=active' : ''}"/>>
-		        <a class="page-link" href="${cPath}/article/listPaging?page=${idx}">${idx}</a>
-		        </li>
-		      </c:forEach>
-		      <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-		        <li class="page-item"><a class="page-link"
-		        href="${cPath}/article/listPaging?page=${pageMaker.endPage + 1}">다음</a></li>
-		      </c:if>
-		    </ul>
-		  </nav>
-		</div>
-        
         <div class="card-footer">
-            <div class="float-right">
-                <button type="button" class="btn btn-success btn-flat" id="writeBtn"
-                		 onclick = "location.href = '${cPath}/article/write'">
-                    <i class="fa fa-pencil"></i> 글쓰기
-                </button>
-            </div>
+          <div class="float-right">
+            <button type="button" class="btn btn-success btn-flat"
+            id="writeBtn">
+            	<i class="fa fa-pencil"></i> 글쓰기
+            </button>
+          </div>
         </div>
+        <div class="card-footer">
+          <nav aria-label="Contacts Page Navigation">
+            <ul class="pagination justify-content-center m-0">
+              <c:if test="${pageMaker.prev}">
+                <li class="page-item"><a class="page-link"
+                href="${cPath}/article/listPaging${pageMaker.makeQuery(pageMaker.startPage - 1)}">이전</a></li>
+              </c:if>
+              <c:forEach begin="${pageMaker.startPage}"
+                end="${pageMaker.endPage}" var="idx">
+                <li class="page-item"
+                	<c:out value="${pageMaker.section.page == idx ? 'class=active' : ''}"/>>
+                	<a class="page-link" href="${cPath}/article/listPaging${pageMaker.makeQuery(idx)}">${idx}</a>
+                </li>
+              </c:forEach>
+              <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+              	<li class="page-item"><a class="page-link"
+              		href="${cPath}/article/listPaging?${pageMaker.makeQuery(pageMaker.endPage + 1)}">다음</a></li>
+              </c:if>
+            </ul>
+          </nav>
+        </div>
+      </div>
     </div>
+  </div><!-- /.container-fluid -->
 </div>
-      </div><!-- /.container-fluid -->
+  
     </div>
     <!-- /.content -->
   </div>
@@ -117,7 +121,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <!-- Main Footer -->
   <%@ include file = "../include/main_footer.jsp" %>
-</div>
 <!-- ./wrapper -->
 
 <!-- REQUIRED SCRIPTS -->
