@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="index3.html" class="brand-link">
@@ -47,6 +48,15 @@
               </li>
             </ul>
           </li>
+          
+            <!-- List Paging 목록 버튼 추가 -->
+              <li class="nav-item">
+                <a href="${cPath}/article/listPaging" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>페이징처리 글목록</p>
+                </a>
+              </li>
+          
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>

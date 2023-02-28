@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.spring.mypage.commons.paging.Section;
 import com.spring.mypage.domain.ArticleDTO;
 import com.spring.mypage.persistence.ArticleDAO;
 
@@ -19,6 +20,7 @@ public class ArticleServiceImpl implements ArticleService {
 		this.articleDAO = articleDAO;
 	}
 	
+	// CRUD 게시판
 	@Override
 	public void create(ArticleDTO articleDTO) throws Exception {
 		articleDAO.create(articleDTO);
@@ -44,4 +46,14 @@ public class ArticleServiceImpl implements ArticleService {
 		return articleDAO.listAll();
 	}
 
+	// 페이징 관련
+	@Override
+	public List<ArticleDTO> listSection(Section section) throws Exception {
+		return articleDAO.listSection(section);
+	}
+	
+	@Override
+	public int countArticles(Section section) throws Exception {
+		return articleDAO.countArticles(section);
+	}
 }

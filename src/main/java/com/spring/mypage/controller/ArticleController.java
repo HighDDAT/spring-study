@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.mypage.commons.paging.PageMaker;
+import com.spring.mypage.commons.paging.Section;
 import com.spring.mypage.domain.ArticleDTO;
 import com.spring.mypage.service.ArticleService;
 
@@ -104,5 +106,30 @@ public class ArticleController {
 		return "redirect:/article/list";
 	}
 	
+	// 페이징 처리
+	@RequestMapping(value = "/listPaging", method = RequestMethod.GET)
+	public String listPaging(Model model, Section section) throws Exception {
+		
+		logger.info("페이지 리스트");
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setSection(section);
+		
+		// 페이지 개수 처리
+		pageMaker.setTotalCount(articleService.countArticles(section));
+		
+		model.addAttribute("articles", articleService.listSection(section));
+		model.addAttribute("pageMaker", pageMaker);
+		
+		return "/article/list_paging";
+	}
+	
+	@RequestMapping(value = "/listSection", method = RequestMethod.GET)
+	public String listSection(Model model, Section section) throws Exception {
+		
+		logger.info("페이징리스트 섹션");
+		model.addAttribute("articles", articleService.listSection(section));
+		return "/article/list_section";
+	}
 	
 }
