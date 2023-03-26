@@ -26,34 +26,50 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
+            <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
-                Starter Pages
+                Basic CRUD Board
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="${cPath}/article/write" class="nav-link active">
+                <a href="${cPath}/article/write" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>글쓰기</p>
+                  <p>Write</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="${cPath}/article/list" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>글목록</p>
+                  <p>List Basic Page</p>
                 </a>
               </li>
             </ul>
           </li>
-          
+ 			
+ 			<li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Paging CRUD Board
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="${cPath}/article/paging/write" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Write</p>
+                </a>
+              </li>
+              	 
             <!-- List Paging 목록 버튼 추가 -->
               <li class="nav-item">
-                <a href="${cPath}/article/listPaging" class="nav-link">
+                <a href="${cPath}/article/paging/list" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>페이징처리 글목록</p>
+                  <p>List Paging Page</p>
                 </a>
               </li>
           
