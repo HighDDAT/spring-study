@@ -2,6 +2,7 @@ package com.spring.mypage.service;
 
 import java.util.List;
 
+import com.spring.mypage.commons.paging.SearchSection;
 import com.spring.mypage.commons.paging.Section;
 import com.spring.mypage.domain.ArticleDTO;
 
@@ -20,6 +21,9 @@ public interface ArticleService {
 
 	// 페이징
 	List<ArticleDTO> listSection(Section section) throws Exception;
-	
 	int countArticles (Section section) throws Exception;
+	
+	// 검색
+	List<ArticleDTO> listSearch(SearchSection searchSection) throws Exception;
+	int countSearchedArticles(SearchSection searchSection) throws Exception;
 }

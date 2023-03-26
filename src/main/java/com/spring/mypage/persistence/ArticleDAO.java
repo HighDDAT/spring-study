@@ -2,6 +2,7 @@ package com.spring.mypage.persistence;
 
 import java.util.List;
 
+import com.spring.mypage.commons.paging.SearchSection;
 import com.spring.mypage.commons.paging.Section;
 import com.spring.mypage.domain.ArticleDTO;
 
@@ -26,4 +27,11 @@ public interface ArticleDAO {
     
     // 전체 게시글 수 구하기
     int countArticles(Section section) throws Exception;
+    
+    // 검색 처리를 위한 영속성 계층 구현
+    List<ArticleDTO> listSearch(SearchSection searchSection) throws Exception;
+    
+    // 검색 결과와 검색 결과의 수를 반환
+    int countSearchedArticles(SearchSection searchSection) throws Exception;
+    
 }

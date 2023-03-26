@@ -63,6 +63,7 @@
                   <i class="far fa-circle nav-icon"></i>
                   <p>Write</p>
                 </a>
+                </ul>
               </li>
               	 
             <!-- List Paging 목록 버튼 추가 -->
@@ -73,16 +74,32 @@
                 </a>
               </li>
           
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Simple Link
-                <span class="right badge badge-danger">New</span>
-              </p>
-            </a>
-          </li>
-        </ul>
+		          <!-- 검색기능 추가 -->
+			          <li class="nav-item has-treeview menu-open">
+			            <a href="#" class="nav-link">
+			              <i class="nav-icon fas fa-tachometer-alt"></i>
+			              <p>
+			                 Paging Search Board
+			                <i class="right fas fa-angle-left"></i>
+			              </p>
+			            </a>
+					   <ul class="nav nav-treeview">
+					    <li class="nav-item">
+					      <a href="${cPath}/article/paging/search/write" class="nav-link">
+					        <i class="far fa-circle nav-icon"></i>
+					        <p>Write</p>
+					      </a>
+					  	</li>
+					    <!-- List Paging 목록 버튼 추가 -->
+					    <li class="nav-item">
+					      <a href="${cPath}/article/paging/search/list" class="nav-link">
+					        <i class="far fa-circle nav-icon"></i>
+					        <p>List Paging Search Page</p>
+					      </a>
+					    </li>
+					  </ul>
+					</li>
+       		 </ul>
       </nav>
       <!-- /.sidebar-menu -->
     </div>

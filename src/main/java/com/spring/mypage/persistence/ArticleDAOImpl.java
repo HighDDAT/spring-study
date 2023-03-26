@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.spring.mypage.commons.paging.SearchSection;
 import com.spring.mypage.commons.paging.Section;
 import com.spring.mypage.domain.ArticleDTO;
 
@@ -75,4 +76,16 @@ public class ArticleDAOImpl implements ArticleDAO {
 	public int countArticles(Section section) throws Exception {
 		return sqlSession.selectOne(NAMESPACE +".countArticles", section);
 	}
+
+	// 검색 관련
+	@Override
+	public List<ArticleDTO> listSearch(SearchSection searchSection) throws Exception {
+		return sqlSession.selectList(NAMESPACE+".listSearch",searchSection);
+	}
+
+	@Override
+	public int countSearchedArticles(SearchSection searchSection) throws Exception {
+		return sqlSession.selectOne(NAMESPACE+".countSearchedArticles", searchSection);
+	}
+	
 }

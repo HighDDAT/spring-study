@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.spring.mypage.commons.paging.SearchSection;
 import com.spring.mypage.commons.paging.Section;
 import com.spring.mypage.domain.ArticleDTO;
 import com.spring.mypage.persistence.ArticleDAO;
@@ -56,4 +57,17 @@ public class ArticleServiceImpl implements ArticleService {
 	public int countArticles(Section section) throws Exception {
 		return articleDAO.countArticles(section);
 	}
+
+	// 검색 관련
+	@Override
+	public List<ArticleDTO> listSearch(SearchSection searchSection) throws Exception {
+		return articleDAO.listSearch(searchSection);
+	}
+
+	@Override
+	public int countSearchedArticles(SearchSection searchSection) throws Exception {
+		return articleDAO.countSearchedArticles(searchSection);
+	}
+	
+	
 }
