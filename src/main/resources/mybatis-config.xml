@@ -6,6 +6,7 @@
 
     <typeAliases>
         <typeAlias type="com.spring.mypage.domain.ArticleDTO" alias="ArticleDTO" />
+        <typeAlias type="com.spring.mypage.domain.ReplyDTO" alias="ReplyDTO" />
     </typeAliases>
 
 </configuration>
