@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.spring.mypage.commons.paging.Section;
 import com.spring.mypage.domain.ReplyDTO;
 import com.spring.mypage.persistence.ReplyDAO;
 
@@ -38,5 +39,18 @@ public class ReplyServiceImpl implements ReplyService {
 	public void delete(Integer reply_no) throws Exception {
 		replyDAO.delete(reply_no);
 	}
+	
+	// 댓글 페이징
+	@Override
+	public List<ReplyDTO> getRepliesPaging(Integer article_no, Section section) throws Exception {
+		return replyDAO.listPaging(article_no, section);
+	}
+
+	@Override
+	public int countReplies(Integer article_no) throws Exception {
+		return replyDAO.countReplies(article_no);
+	}
+	
+	
 
 }

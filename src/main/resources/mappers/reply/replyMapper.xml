@@ -17,7 +17,28 @@
         FROM tb_reply
         WHERE article_no = #{article_no}
         ORDER BY reply_no
-    </select>
+ </select>
+ 
+ <select id="listPaging" resultMap="ReplyResultMap">
+    SELECT
+        reply_no
+        , article_no
+        , reply_text
+        , reply_writer
+        , reg_date
+        , update_date
+    FROM tb_reply
+    WHERE article_no = #{article_no}
+    ORDER BY reply_no
+    LIMIT #{section.pageStart}, #{section.perPageNum}
+</select>
+
+<select id="countReplies" resultType="int">
+    SELECT
+        COUNT(article_no)
+    FROM tb_reply
+    WHERE article_no = #{article_no}
+</select>
 
     <insert id="create">
         INSERT INTO tb_reply (
@@ -44,7 +65,7 @@
         WHERE reply_no = #{reply_no}
     </delete>
 
-    <resultMap id="ReplyResultMap" type="ReplyVO">
+    <resultMap id="ReplyResultMap" type="ReplyDTO">
         <id property="reply_no" column="reply_no"/>
         <result property="article_no" column="article_no"/>
         <result property="reply_text" column="reply_text"/>
@@ -53,7 +74,7 @@
         <result property="update_date" column="update_date"/>
     </resultMap>
 
-    <resultMap id="ArticleResultMap" type="ArticleVO">
+    <resultMap id="ArticleResultMap" type="ArticleDTO">
         <id property="article_no" column="article_no"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
