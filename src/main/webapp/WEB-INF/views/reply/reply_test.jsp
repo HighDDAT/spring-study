@@ -216,6 +216,48 @@ function getReplies() {
 	}); // 삭제 기능
 
 	// 모달 내 수정 기능
+	$(".modalModBtn").on("click", function() {
+		console.log('수정버튼 이벤트');
+		
+		// 선택자
+		var reply = $(this).parent().parent();
+		
+		// 수정 리플 번호
+		var reply_no = reply.find("#reply_no").val();
+		
+		// 수정 리플 내용
+		var reply_text = reply.find("#reply_text").val();
+		
+		// AJAX PUT
+		$.ajax ({
+			type : "put",
+			url : "${cPath}/replies/" + reply_no,
+			headers : {
+				"Content-type" : "application/json",
+				"X-HTTP-Method-Override" : "PUT"
+			},
+			
+			data : JSON.stringify({
+				reply_text : reply_text
+			}),
+			
+			dataType : "text",
+			success : function(result) {
+				console.log("실행 결과 : " + result);
+				
+				if(result == "modSuccess") {
+					alert("리플 수정 완료");
+					
+					// 모달 닫기
+					$("#modifyModal").modal("hide");
+					
+					// 리스트 갱신
+					getReplies();
+				}
+			}
+		})
+		
+	})
 }
 </script>
     <!-- /.content -->
