@@ -115,11 +115,9 @@ getReplies();
 function getReplies() {
 
     $.getJSON("${cPath}/replies/all/" + article_no, function (data) {
-
         console.log(data);
 
         var str = "";
-
         $(data).each(function () {
             str += "<li data-reply_no='" + this.reply_no + "' class='replyLi'>"
                 +   "<p class='reply_text'>" + this.reply_text + "</p>"
@@ -128,53 +126,96 @@ function getReplies() {
                 +   "<button type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#modifyModal'>댓글 수정</button>"
                 + "</li>"
                 + "<hr/>";
-
         });
-
         $("#replies").html(str);
-        
-        // 버튼 이벤트
-        $(".replyAddBtn").on("click", function() {
-        	console.log('리플등록버튼')
-    		
-        	// 입력받은 값 처리
-        	var reply_text = $("#newReplyText");
-        	var reply_writer = $("#newReplyWriter");
-        	
-        	var reply_textVal = reply_text.val();
-        	var reply_writerVal = reply_writer.val();
-        	
-        	// AJAX : POST방식
-        	$.ajax({
-        		type : "post",
-    			url : "${cPath}/replies",
-    			headers : {
-    				"Content-Type" : "application/json",
-    				"X-HTTP-Method-Override" : "POST"
-    			},
-    			dataType : "text",
-    			data : JSON.stringify({
-    				article_no : article_no,
-    				reply_text : reply_textVal,
-    				reply_writer : reply_writerVal
-    			}),
-    			
-    			success : function(result) {
-    				// 리플 작성 성공 알림
-    				if(result == "regSuccess") {
-    					alert("리플 작성 성공");
-    				}
-    				getReplies(); // 리플 리스트 출력 함수 호출
-    	            reply_text.val(""); // 리플 컨텐츠 초기화
-    	            reply_writer.val(""); // 리플 작성자 초기화
-    			}
-    			
-        	});
-    	});
-    });
+    }); // 리플 목록 출력
     
+ 	// 버튼 이벤트
+    $(".replyAddBtn").on("click", function() {
+    	console.log('리플등록버튼')
+		
+    	// 입력받은 값 처리
+    	var reply_text = $("#newReplyText");
+    	var reply_writer = $("#newReplyWriter");
+    	
+    	var reply_textVal = reply_text.val();
+    	var reply_writerVal = reply_writer.val();
+    	
+    	// AJAX POST
+    	$.ajax({
+    		type : "post",
+			url : "${cPath}/replies",
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "POST"
+			},
+			dataType : "text",
+			data : JSON.stringify({
+				article_no : article_no,
+				reply_text : reply_textVal,
+				reply_writer : reply_writerVal
+			}),
+			
+			success : function(result) {
+				// 리플 작성 성공 알림
+				if(result == "regSuccess") {
+					alert("리플 작성 성공");
+					console.log('리플 작성 완료');
+				}
+				getReplies(); // 리플 리스트 출력 함수 호출
+	            reply_text.val(""); // 리플 컨텐츠 초기화
+	            reply_writer.val(""); // 리플 작성자 초기화
+			}
+    	});
+	}); // 버튼이벤트
    
+	// 모달을 통한 리플 조회 수정 값 받아오기
+	$("#replies").on("click",".replyLi button", function() {
+		console.log('버튼 이벤트 for 모달');
+		
+		var reply = $(this).parent();
+		
+		var reply_no = reply.attr("data-reply_no");
+		var reply_text = reply.find(".reply_text").text();
+		var reply_writer = reply.find(".reply_writer").text();
+		
+		$("#reply_no").val(reply_no);
+	    $("#reply_text").val(reply_text);
+	    $("#reply_writer").val(reply_writer);
+	});
+	
+	// 모달 내 삭제버튼 기능
+	$(".modalDelBtn").on("click", function() {
+		console.log('삭제버튼 이벤트')
+		
+		// 리플 넘버 받아오기
+		var reply_no = $(this).parent().parent().find("#reply_no").val();
+		
+		// AJAX DELETE
+		$.ajax({
+			type : "delete",
+			url : "${cPath}/replies/" + reply_no,
+			headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "DELETE"
+			},
+			dataType : "text",
+			success : function (result) {
+				console.log("실행 결과 : " + result);
+				if(result == "delSuccess") {
+					alert("리플 삭제 완료");
+					
+					// 모달 닫기
+					$("#modifyModal").modal("hide");
+					
+					// 리스트 갱신
+					getReplies();
+				}
+			}
+		})
+	}); // 삭제 기능
 
+	// 모달 내 수정 기능
 }
 </script>
     <!-- /.content -->
