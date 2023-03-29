@@ -124,6 +124,7 @@ function getReplies() {
             str += "<li data-reply_no='" + this.reply_no + "' class='replyLi'>"
                 +   "<p class='reply_text'>" + this.reply_text + "</p>"
                 +   "<p class='reply_writer'>" + this.reply_writer + "</p>"
+                	// 리플 수정 modal 창 띄우기
                 +   "<button type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#modifyModal'>댓글 수정</button>"
                 + "</li>"
                 + "<hr/>";
@@ -131,8 +132,48 @@ function getReplies() {
         });
 
         $("#replies").html(str);
-
+        
+        // 버튼 이벤트
+        $(".replyAddBtn").on("click", function() {
+        	console.log('리플등록버튼')
+    		
+        	// 입력받은 값 처리
+        	var reply_text = $("#newReplyText");
+        	var reply_writer = $("#newReplyWriter");
+        	
+        	var reply_textVal = reply_text.val();
+        	var reply_writerVal = reply_writer.val();
+        	
+        	// AJAX : POST방식
+        	$.ajax({
+        		type : "post",
+    			url : "${cPath}/replies",
+    			headers : {
+    				"Content-Type" : "application/json",
+    				"X-HTTP-Method-Override" : "POST"
+    			},
+    			dataType : "text",
+    			data : JSON.stringify({
+    				article_no : article_no,
+    				reply_text : reply_textVal,
+    				reply_writer : reply_writerVal
+    			}),
+    			
+    			success : function(result) {
+    				// 리플 작성 성공 알림
+    				if(result == "regSuccess") {
+    					alert("리플 작성 성공");
+    				}
+    				getReplies(); // 리플 리스트 출력 함수 호출
+    	            reply_text.val(""); // 리플 컨텐츠 초기화
+    	            reply_writer.val(""); // 리플 작성자 초기화
+    			}
+    			
+        	});
+    	});
     });
+    
+   
 
 }
 </script>
