@@ -48,7 +48,7 @@ public class ReplyController {
 	}
 	 
 	// 리플 리스트
-	@RequestMapping(value = "/all/{articleNo}", method = RequestMethod.GET)
+	@RequestMapping(value = "/all/{article_no}", method = RequestMethod.GET)
 	public ResponseEntity<List<ReplyDTO>>list(@PathVariable("article_no")Integer article_no) {
 		ResponseEntity<List<ReplyDTO>> entity = null;
 		
@@ -88,7 +88,7 @@ public class ReplyController {
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-			entity = new ResponseEntity<Map<String,Object>>(HttpStatus.OK);
+			entity = new ResponseEntity<Map<String,Object>>(HttpStatus.BAD_REQUEST);
 		}
 		
 		return entity;

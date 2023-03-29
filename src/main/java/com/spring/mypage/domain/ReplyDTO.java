@@ -19,14 +19,5 @@ public class ReplyDTO {
 	private Date reg_date;
 	private Date update_date;
 	
-	@Override
-	public String toString() {
-	      return "ReplyDTO [reply_no=" + reply_no + 
-	                    ", article_no="+ article_no + 
-	                    ", reply_text="+ reply_text + 
-	                    ", reply_writer="+ reply_writer + 
-	                    ", reg_date="+ reg_date + 
-	                    ", update_date="+ update_date+ "]" ;
-	}
 
 }
