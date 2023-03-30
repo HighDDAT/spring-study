@@ -56,23 +56,24 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <span class="description"><fmt:formatDate pattern="yyyy-MM-dd" value="${article.regDate}"/></span>
             </div>
         </div>
-        <div class="card-footer">
-		    <form role="form" method="post">
-		        <input type="hidden" name="article_no" value="${article.article_no}">
-		        <input type="hidden" name="page" value="${section.page}">
-		        <input type="hidden" name="perPageNum" value="${section.perPageNum}">
-		    </form>
-		    <button type="submit" class="btn btn-primary listBtn"><i class="fa fa-list"></i> 목록</button>
-		    <div class="pull-right">
-		        <button type="submit" class="btn btn-warning modBtn"><i class="fa fa-edit"></i> 수정</button>
-		        <button type="submit" class="btn btn-danger delBtn"><i class="fa fa-trash"></i> 삭제</button>
+		        <div class="card-footer">
+				    <form role="form" method="post">
+				        <input type="hidden" name="article_no" value="${article.article_no}">
+				        <input type="hidden" name="page" value="${section.page}">
+				        <input type="hidden" name="perPageNum" value="${section.perPageNum}">
+				    </form>
+				    <button type="submit" class="btn btn-primary listBtn"><i class="fa fa-list"></i> 목록</button>
+				    <div class="float-right">
+				        <button type="submit" class="btn btn-warning modBtn"><i class="fa fa-edit"></i> 수정</button>
+				        <button type="submit" class="btn btn-danger delBtn"><i class="fa fa-trash"></i> 삭제</button>
+					</div>
+				</div>
 		    </div>
 		</div>
-    </div>
-</div>
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
+    
   </div>
   <!-- /.content-wrapper -->
 

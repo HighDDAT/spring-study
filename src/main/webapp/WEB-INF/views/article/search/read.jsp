@@ -23,7 +23,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-dark">Starter Page</h1>
+            <h1 class="m-0 text-dark">Paging Search Reply Board</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -65,16 +65,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		        <input type="hidden" name="keyword" value="${searchSection.keyword}">
 		    </form>
 		    <button type="submit" class="btn btn-primary listBtn"><i class="fa fa-list"></i> 목록</button>
-		    <div class="pull-right">
+		    <div class="float-right">
 		        <button type="submit" class="btn btn-warning modBtn"><i class="fa fa-edit"></i> 수정</button>
 		        <button type="submit" class="btn btn-danger delBtn"><i class="fa fa-trash"></i> 삭제</button>
 		    </div>
-		</div>
-    </div>
-</div>
+			</div>
+	    </div>
+	</div>
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
+    
+    <!-- reply insert -->
+    <div class="card-body">
+	  <form class="form-horizontal">
+	    <div class="row">
+	      <div class="form-group col-sm-8">
+	        <input class="form-control input-sm" id="newReplyText" type="text" placeholder="댓글 입력...">
+	      </div>
+	      <div class="form-group col-sm-2">
+	        <input class="form-control input-sm" id="newReplyWriter" type="text" placeholder="작성자">
+	      </div>
+	      <div class="form-group col-sm-2">
+	        <button type="button" class="btn btn-primary btn-sm btn-block replyAddBtn">
+	        <i class="fa fa-save"></i> 저장
+	      </button>
+	      </div>
+	    </div>	
+	  </form>	
+	</div>
+    
   </div>
   <!-- /.content-wrapper -->
 
@@ -103,17 +123,23 @@ $(document).ready(function () {
     console.log(formObj);
 
     $(".modBtn").on("click", function () {
+    	console.log('수정 버튼 이벤트')
+    	
         formObj.attr("action", "${cPath}/article/paging/search/modify");
         formObj.attr("method", "get");
         formObj.submit();
     });
 
     $(".delBtn").on("click", function () {
+       console.log('삭제 버튼 이벤트')
+    	
        formObj.attr("action", "${cPath}/article/paging/search/remove");
        formObj.submit();
     });
 
     $(".listBtn").on("click", function () {
+       console.log('목록 버튼 이벤트')    	
+    	
        formObj.attr("action", "${cPath}/article/paging/search/list");
        formObj.attr("method", "get");
        formObj.submit();

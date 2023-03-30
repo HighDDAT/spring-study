@@ -60,7 +60,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tr>
                   <td>${article.article_no}</td>
                   <td><a
-                  href="${cPath}/article/paging/read${pageMaker.makeQuery(pageMaker.section.page)}&article_no=${article.article_no}">${article.title}</a></td>
+                  href="${cPath}/article/paging/search/read${pageMaker.makeQuery(pageMaker.section.page)}&article_no=${article.article_no}">${article.title}</a></td>
                   <td>${article.writer}</td>
                   <td><fmt:formatDate value="${article.regDate}"
                   pattern="yyyy-MM-dd" /></td>
@@ -71,26 +71,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
           </table>
         </div>
         <div class="card-footer">
-          <div class="float-right">
-            <button type="button" class="btn btn-success btn-flat"
-            id="writeBtn">
-            	<i class="fa fa-pencil"></i> 글쓰기
-            </button>
-          </div>
-        </div>
-        <div class="card-footer">
           <nav aria-label="Contacts Page Navigation">
             <ul class="pagination justify-content-center m-0">
+              
               <c:if test="${pageMaker.prev}">
                 <li><a
                		 href="${cPath}/article/paging/search/list${pageMaker.makeSearch(pageMaker.startPage - 1)}">이전</a></li>
               </c:if>
+              
               <c:forEach begin="${pageMaker.startPage}"
                 end="${pageMaker.endPage}" var="idx">
                 <li <c:out value="${pageMaker.section.page == idx ? 'class=active' : ''}"/>>
                 	<a class="page-link" href="${cPath}/article/paging/search/list${pageMaker.makeSearch(idx)}">${idx}</a>
                 </li>
               </c:forEach>
+              
               <c:if test="${pageMaker.next && pageMaker.endPage > 0}">
               	<li> <a
               		href="${cPath}/article/paging/search/list?${pageMaker.makeSearch(pageMaker.endPage + 1)}">다음</a></li>
@@ -98,6 +93,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </ul>
           </nav>
         </div>
+        
         <td>
 		  <a href="${cPath}/article/paging/search/read${pageMaker.makeSearch(pageMaker.section.page)}&articleNo=${article.articleNo}">
 		    ${article.title}
@@ -128,11 +124,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		        </div>
 		      </div>
 		  </div>
-  <div class="float-right">
-    <button type="button" class="btn btn-success btn-flat" id="writeBtn">
-    	<i class="fa fa-pencil"></i> 글쓰기
-    </button>
-  </div>
+			  <div class="pull-right">
+			    <button type="button" class="btn btn-success btn-flat" id="writeBtn"
+                		 onclick = "location.href = '${cPath}/article/paging/search/write'">
+                    <i class="fa fa-pencil"></i> 글쓰기
+                </button>
+			  </div>
 </div>
         
       </div>
@@ -179,6 +176,7 @@ $(document).ready(function () {
             + "&searchType=" + $("select option:selected").val()
             + "&keyword=" + encodeURIComponent($("#keywordInput").val());
     });
+    
 });
 </script>
 </body>

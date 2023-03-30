@@ -68,7 +68,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 			</div>
             
             <div class="card-footer">
-                <button type="button" class="btn btn-primary"><i class="fa fa-list"></i> 목록</button>
+                <button type="button" class="btn btn-primary listBtn"><i class="fa fa-list"></i> 목록</button>
                 <div class="float-right">
                     <button type="button" class="btn btn-warning cancelBtn"><i class="fa fa-trash"></i> 취소</button>
                     <button type="submit" class="btn btn-success modBtn"><i class="fa fa-save"></i> 저장</button>
@@ -116,6 +116,8 @@ $(document).ready(function () {
     });
 
     $(".listBtn").on("click", function () {
+    	console.log('리스트 버튼 이벤트')
+    	
         self.location = "${cPath}/article/paging/search/list?page=${searchSection.page}"
         		+"&perPageNum=${searchSection.perPageNum}"
 		        +"&searchType=${searchSection.searchType}"
