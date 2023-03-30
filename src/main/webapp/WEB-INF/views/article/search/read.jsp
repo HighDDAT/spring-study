@@ -94,6 +94,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	    </div>	
 	  </form>	
 	</div>
+	<!-- /.reply insert -->
+	
+	<!-- reply list & paging -->
+	<div class="card card-primary card-outline">
+	<!-- 리플 개수, 접기 펼치기 -->
+	  <div class="card-header">
+	  <a href="" class="link-black text-lg"><i class="fas fa-comments margin-r-5 replyCount"></i></a>
+	    <div class="card-tools">
+	      <button type="button" class="btn primary"  data-widget="collapse">
+	          <i class="fa fa-plus"></i>
+	      </button>
+	    </div>
+	  </div>
+	  
+	  <!-- 리플 리스트 -->
+	  <div class="card-body repliesDiv">
+	  </div>
+	  
+	  <!-- 리플 페이징 -->
+	  <div class="card-footer">
+	    <nav aria-label="Contacts Page Navigation">
+	    <ul class="pagination pagination-sm no-margin justify-content-center m-0">
+	    </ul>
+	    </nav>
+	  </div>
+	</div>
+    <!-- /.reply list & paging -->
     
   </div>
   <!-- /.content-wrapper -->
