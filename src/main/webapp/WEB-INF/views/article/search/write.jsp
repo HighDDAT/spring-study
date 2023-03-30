@@ -62,7 +62,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
             <div class="card-footer">
                 <button type="button" class="btn btn-primary"
-                		onclick = "location.href = '${cPath}/article/list'"><i class="fa fa-list"></i> 목록</button>
+                		onclick = "location.href = '${cPath}/article/paging/search/list'"><i class="fa fa-list"></i> 목록</button>
                 <div class="float-right">
                     <button type="reset" class="btn btn-warning"><i class="fa fa-reply"></i> 초기화</button>
                     <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> 저장</button>
