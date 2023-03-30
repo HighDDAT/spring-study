@@ -105,14 +105,19 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </div>
 <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
-//3번째 게시글
-var article_no = 3;
-
-// 댓글 목록 호출
-getReplies();
-
-// 댓글 목록 출력 함수
-function getReplies() {
+$(document).ready(function() {
+	
+	// 3번째 게시글
+	var article_no = 3;
+	
+	// 리플 목록 페이징 변수 선언 및 1로 초기화
+	var replyPageNum = 1;
+	
+	// 리플 목록 호출
+	getRepliesPaging(replyPageNum);
+	
+	// 댓글 목록 출력 함수
+	function getReplies() {
 
     $.getJSON("${cPath}/replies/all/" + article_no, function (data) {
         console.log(data);
@@ -123,13 +128,14 @@ function getReplies() {
                 +   "<p class='reply_text'>" + this.reply_text + "</p>"
                 +   "<p class='reply_writer'>" + this.reply_writer + "</p>"
                 	// 리플 수정 modal 창 띄우기
-                +   "<button type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#modifyModal'>댓글 수정</button>"
+                +   "<button type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#modifyModal'>리플 수정</button>"
                 + "</li>"
                 + "<hr/>";
         });
+        
         $("#replies").html(str);
-    }); // 리플 목록 출력
-    
+    }); // 리플 목록 출력 end
+}
  	// 버튼 이벤트
     $(".replyAddBtn").on("click", function() {
     	console.log('리플등록버튼')
@@ -162,12 +168,12 @@ function getReplies() {
 					alert("리플 작성 성공");
 					console.log('리플 작성 완료');
 				}
-				getReplies(); // 리플 리스트 출력 함수 호출
+				getRepliesPaging(replyPageNum); // 리플 리스트 출력 함수 호출
 	            reply_text.val(""); // 리플 컨텐츠 초기화
 	            reply_writer.val(""); // 리플 작성자 초기화
 			}
     	});
-	}); // 버튼이벤트
+	}); // 버튼이벤트 end
    
 	// 모달을 통한 리플 조회 수정 값 받아오기
 	$("#replies").on("click",".replyLi button", function() {
@@ -182,7 +188,7 @@ function getReplies() {
 		$("#reply_no").val(reply_no);
 	    $("#reply_text").val(reply_text);
 	    $("#reply_writer").val(reply_writer);
-	});
+	}); // 모달을 통한 리플 조회 수정 값 받아오기 end
 	
 	// 모달 내 삭제버튼 기능
 	$(".modalDelBtn").on("click", function() {
@@ -209,12 +215,13 @@ function getReplies() {
 					$("#modifyModal").modal("hide");
 					
 					// 리스트 갱신
-					getReplies();
+					getRepliesPaging(replyPageNum);
 				}
 			}
 		})
-	}); // 삭제 기능
+	}); // 삭제 기능 end
 
+	
 	// 모달 내 수정 기능
 	$(".modalModBtn").on("click", function() {
 		console.log('수정버튼 이벤트');
@@ -252,13 +259,72 @@ function getReplies() {
 					$("#modifyModal").modal("hide");
 					
 					// 리스트 갱신
-					getReplies();
+					getRepliesPaging(replyPageNum);
 				}
 			}
 		})
+	}) // 모달창 띄우기 스크립트 end
+	
+	
+	// 페이징 처리된 리플 리스트
+	function getRepliesPaging(page) {
+		$.getJSON("${cPath}/replies/" + article_no + "/" + page, function(data) {
+			console.log(data);
+			
+			var str = "";
+			
+			$(data.replies).each(function() {
+				str += "<li data-reply_no='" + this.reply_no + "' class='replyLi'>"
+                +  "<p class='reply_text'>" + this.reply_text + "</p>"
+                +  "<p class='reply_writer'>" + this.reply_writer + "</p>"
+                +  "<button type='button' class='btn btn-xs btn-success' data-toggle='modal' data-target='#modifyModal'>리플 수정</button>"
+                +  "</li>"
+                +  "<hr/>";
+			});
+			
+			$("#replies").html(str);
+			
+			// 페이지 번호 출력 호출
+			printPageNumbers(data.pageMaker);
+			
+			});
+		} // getRepliesPaging end
+	
+	
+		// 페이지 번호 출력
+		function printPageNumbers(pageMaker) {
+			
+			var str ="";
+			
+			// 이전 버튼
+			if(pageMaker.prev) {
+				str += "<li class=\"page-item\"><a class=\"page-link\" href='"
+				+ (pageMaker.startPage-1) + "'>이전</a></li>";
+			}
+			
+			// 페이지 번호
+			for (var i = pageMaker.startPage, len = pageMaker.endPage; i <= len; i++) {
+	        	var strCalss = pageMaker.section.page == i ? 'class=active' : '';
+	        	str += "<li class=\"page-item\" " + strCalss +"><a class=\"page-link\" href='"+i+"'>"+i+"</a></li>";
+	    	}
+			
+			// 다음 버튼
+			if (pageMaker.next) {
+		        str += "<li class=\"page-item\"><a class=\"page-link\" href='"+(pageMaker.endPage + 1)+"'>다음</a></li>";
+		    }
+			
+		    $(".pagination-sm").html(str);
+		}
 		
-	})
-}
+			// 목록페이지 번호 클릭 이벤트
+			$(".pagination").on("click", "li a", function (event) {
+	
+			    event.preventDefault();
+			    replyPageNum = $(this).attr("href"); // 목록 페이지 번호 추출
+			    getRepliesPaging(replyPageNum); // 목록 페이지 호출
+	
+			});
+	});
 </script>
     <!-- /.content -->
   </div>
