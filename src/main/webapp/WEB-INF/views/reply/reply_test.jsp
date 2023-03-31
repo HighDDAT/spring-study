@@ -166,7 +166,6 @@ $(document).ready(function() {
 				// 리플 작성 성공 알림
 				if(result == "regSuccess") {
 					alert("리플 작성 성공");
-					console.log('리플 작성 완료');
 				}
 				getRepliesPaging(replyPageNum); // 리플 리스트 출력 함수 호출
 	            reply_text.val(""); // 리플 컨텐츠 초기화

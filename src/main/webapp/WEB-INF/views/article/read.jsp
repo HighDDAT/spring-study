@@ -91,7 +91,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
 <!-- REQUIRED SCRIPTS -->
 <%@ include file = "../include/plugin_js.jsp" %>
-
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 <script>
 $(document).ready(function () {
 
