@@ -102,7 +102,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	  <div class="card-header">
 	  <a href="" class="link-black text-lg"><i class="fas fa-comments margin-r-5 replyCount"></i></a>
 	    <div class="card-tools">
-	      <button type="button" class="btn primary"  data-widget="collapse">
+	      <button type="button" class="btn btn-box-tools"  data-widget="collapse">
 	          <i class="fa fa-plus"></i>
 	      </button>
 	    </div>
@@ -127,14 +127,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		    <div class="modal-dialog">
 		        <div class="modal-content">
 		            <div class="modal-header">
+		                <h4 class="modal-title">수정</h4>
 		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		                    <span aria-hidden="true">&times;</span></button>
-		                <h4 class="modal-title">수정</h4>
 		            </div>
 		            <div class="modal-body" data-rno>
-		                <input type="hidden" class="replyNo"/>
+		                <input type="hidden" class="reply_no"/>
 		                <%--<input type="text" id="replytext" class="form-control"/>--%>
-		                <textarea class="form-control" id="replyText" rows="3" style="resize: none"></textarea>
+		                <textarea class="form-control" id="reply_text" rows="3" style="resize: none"></textarea>
 		            </div>
 		            <div class="modal-footer">
 		                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
@@ -149,9 +149,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		    <div class="modal-dialog">
 		        <div class="modal-content">
 		            <div class="modal-header">
+		                <h4 class="modal-title">삭제</h4>
 		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 		                    <span aria-hidden="true">&times;</span></button>
-		                <h4 class="modal-title">삭제</h4>
 		                <input type="hidden" class="rno"/>
 		            </div>
 		            <div class="modal-body" data-rno>
@@ -159,8 +159,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		                <input type="hidden" class="rno"/>
 		            </div>
 		            <div class="modal-footer">
-		                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">아니요.</button>
-		                <button type="button" class="btn btn-primary modalDelBtn">네. 삭제합니다.</button>
+		                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">닫기</button>
+		                <button type="button" class="btn btn-primary modalDelBtn">삭제</button>
 		            </div>
 		        </div>
 		    </div>
@@ -200,7 +200,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <i class="fa fa-edit"> 수정</i>
                 </a>
             </span>
-            <span class="description">{{prettifyDate regDate}}</span>
+            <span class="description">{{prettifyDate reg_date}}</span>
         </div>
         <div class="oldReplyText">{{reply_text}}</div>
         <br/>
@@ -258,7 +258,7 @@ $(document).ready(function () {
 		var dateObj = new Date(timeValue);
 		
 		var year = dateObj.getFullYear(); // 년
-		var month = dateObj.getMonth(); // 월
+		var month = dateObj.getMonth()+1; // 월
 		var date = dateObj.getDate(); // 일
 		
 		var hours = dateObj.getHours(); // 시
@@ -392,10 +392,16 @@ $(document).ready(function () {
         $("#reply_text").val(reply.find(".oldReplyText").text());
     });
 	
+	
 	// modal modify button event
 	$(".modalModBtn").on("click", function () {
+		console.log("모달 수정 클릭이벤트");
+		
         var reply_no = $(".reply_no").val();
         var reply_text = $("#reply_text").val();
+        
+        console.log(reply_no);
+       
         $.ajax({
             type : "put",
             url : "${cPath}/replies/" + reply_no,
@@ -414,10 +420,11 @@ $(document).ready(function () {
                     getReplies("${cPath}/replies/" + article_no + "/" + replyPageNum); // 댓글 목록 호출
                     $("#modModal").modal("hide"); // modal 창 닫기
                 }
-            }
-        })
+            } 
+        }) 
     }); // modal modify button event end
-	
+
+    
 	// modal delete button event
 	$(".modalDelBtn").on("click", function() {
 		console.log('삭제 버튼 클릭 이벤트');
