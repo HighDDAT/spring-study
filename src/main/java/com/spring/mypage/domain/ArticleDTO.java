@@ -14,5 +14,6 @@ public class ArticleDTO {
 	private String writer;
 	private Timestamp regDate;
 	private int viewCnt;
+	private int replyCnt;
 	
 }

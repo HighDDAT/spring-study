@@ -34,4 +34,10 @@ public interface ArticleDAO {
     // 검색 결과와 검색 결과의 수를 반환
     int countSearchedArticles(SearchSection searchSection) throws Exception;
     
+    // 리플 갯수 갱신 관련
+    void updateReplyCnt(Integer article_no, int amount) throws Exception;
+    
+    // 조회수
+    void updateViewCnt(Integer article_no) throws Exception;
+    
 }

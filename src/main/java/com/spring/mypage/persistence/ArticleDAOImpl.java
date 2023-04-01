@@ -1,6 +1,8 @@
 package com.spring.mypage.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -87,5 +89,23 @@ public class ArticleDAOImpl implements ArticleDAO {
 	public int countSearchedArticles(SearchSection searchSection) throws Exception {
 		return sqlSession.selectOne(NAMESPACE+".countSearchedArticles", searchSection);
 	}
+
+	// 리플 갯수 갱신 관련
+	@Override
+	public void updateReplyCnt(Integer article_no, int amount) throws Exception {
+
+	    Map<String, Object> paramMap = new HashMap<>();
+	    paramMap.put("article_no", article_no);
+	    paramMap.put("amount", amount);
+
+	    sqlSession.update(NAMESPACE + ".updateReplyCnt",paramMap);
+	}
+
+	// 조회수
+	@Override
+	public void updateViewCnt(Integer article_no) throws Exception {
+		sqlSession.update(NAMESPACE + ".updateViewCnt", article_no);
+	}
+	
 	
 }

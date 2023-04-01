@@ -12,15 +12,15 @@
             , title
             , content
             , writer
-            , regdate
-            , viewcnt
+            , regDate
+            , view_cnt
         ) VALUES (
             #{article_no}
             , #{title}
             , #{content}
             , #{writer}
             , #{regDate}
-            , #{viewCnt}
+            , #{view_Cnt}
         )
     </insert>
 
@@ -31,7 +31,7 @@
             , content
             , writer
             , regdate
-            , viewcnt
+            , view_cnt
         FROM
             tb_article
         WHERE article_no = #{article_no}
@@ -59,7 +59,7 @@
             content,
             writer,
             regdate,
-            viewcnt
+            view_cnt
         FROM tb_article
         WHERE article_no > 0
         ORDER BY article_no DESC, regdate DESC
@@ -75,7 +75,7 @@
 			content,
 			writer,
 			regdate,
-			viewcnt
+			view_cnt
 		FROM tb_article
 		WHERE article_no > 0
 		ORDER BY article_no DESC, regdate DESC
@@ -92,7 +92,7 @@
 			content,
 			writer,
 			regdate,
-			viewcnt
+			view_cnt
 		FROM tb_article
 		WHERE article_no > 0
 		ORDER BY article_no DESC, regdate DESC
@@ -117,7 +117,8 @@
         content,
         writer,
         regdate,
-        viewcnt
+        view_cnt,
+        reply_cnt
     FROM tb_article
     WHERE article_no > 0
     ]]>
@@ -128,6 +129,7 @@
     ]]>
 </select>
 
+
 <select id="countSearchedArticles" resultType="int">
     <![CDATA[
     SELECT
@@ -137,6 +139,18 @@
     ]]>
     <include refid="search"/>
 </select>
+
+<update id="updateReplyCnt">
+    UPDATE tb_article
+    SET reply_cnt = reply_cnt + #{amount}
+    WHERE article_no = #{article_no}
+</update>
+
+<update id="updateViewCnt">
+    UPDATE tb_article
+    SET view_cnt = view_cnt + 1
+    WHERE article_no = #{article_no}
+</update>
 
 <sql id="search">
     <if test="searchType != null">
@@ -177,7 +191,8 @@
         <result property="content" column="content" />
         <result property="writer" column="writer" />
         <result property="regDate" column="regdate" />
-        <result property="viewCnt" column="viewcnt" />
+        <result property="viewCnt" column="view_cnt" />
+        <result property="replyCnt" column="reply_cnt" />
     </resultMap>
     
 </mapper>

@@ -5,6 +5,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.mypage.commons.paging.SearchSection;
 import com.spring.mypage.commons.paging.Section;
@@ -27,8 +29,10 @@ public class ArticleServiceImpl implements ArticleService {
 		articleDAO.create(articleDTO);
 	}
 	
+	@Transactional(isolation = Isolation.READ_COMMITTED)
 	@Override
 	public ArticleDTO read(Integer article_no) throws Exception {
+		articleDAO.updateViewCnt(article_no);
 		return articleDAO.read(article_no);
 	}
 	

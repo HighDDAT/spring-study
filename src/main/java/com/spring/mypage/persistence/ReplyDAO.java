@@ -16,9 +16,12 @@ public interface ReplyDAO {
 	
 	void delete(Integer reply_no) throws Exception;
 	
-	// 댓글 페이징
+	// 리플 페이징
 	List<ReplyDTO> listPaging(Integer article_no, Section section) throws Exception;
 	
 	int countReplies(Integer article_no) throws Exception;
+	
+	// 리플 갯수 갱신
+	int getArticleNo(Integer reply_no) throws Exception;
 	
 }

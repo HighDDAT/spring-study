@@ -60,7 +60,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <tr>
                   <td>${article.article_no}</td>
                   <td><a
-                  href="${cPath}/article/paging/search/read${pageMaker.makeQuery(pageMaker.section.page)}&article_no=${article.article_no}">${article.title}</a></td>
+                  href="${cPath}/article/paging/search/read${pageMaker.makeQuery(pageMaker.section.page)}&article_no=${article.article_no}">
+                  ${article.title}
+                  </a>
+                  <span class="badge bg-teal"><i class="fa fa-comment"></i> + ${article.replyCnt}</span>
+                  </td>
                   <td>${article.writer}</td>
                   <td><fmt:formatDate value="${article.regDate}"
                   pattern="yyyy-MM-dd" /></td>

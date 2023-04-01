@@ -65,6 +65,13 @@
         WHERE reply_no = #{reply_no}
     </delete>
 
+	<select id="getArticleNo" resultType="int">
+	    SELECT
+	        article_no
+	    FROM tb_reply
+	    WHERE reply_no = #{reply_no}
+	</select>
+
     <resultMap id="ReplyResultMap" type="ReplyDTO">
         <id property="reply_no" column="reply_no"/>
         <result property="article_no" column="article_no"/>
