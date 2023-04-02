@@ -26,7 +26,7 @@ public class ReplyDAOTest {
 	public void testReplyCreate() throws Exception {
 		for (int i = 1; i <= 100; i++) {
 			ReplyDTO replyDTO = new ReplyDTO();
-			replyDTO.setArticle_no(3);
+			replyDTO.setArticle_no(50);
 			replyDTO.setReply_text(i + "번째 리플 입니다.");
 			replyDTO.setReply_writer("tester" +(i%10));
 			replyDAO.create(replyDTO);
