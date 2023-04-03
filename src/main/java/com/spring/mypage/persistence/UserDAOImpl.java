@@ -9,7 +9,7 @@ import com.spring.mypage.domain.LoginDTO;
 import com.spring.mypage.domain.UserDTO;
 
 @Repository
-public class UserDAOImpl implements UserDAO{
+public class UserDAOImpl implements UserDAO {
 	
 	private static String NAMESPACE = "com.spring.mypage.mappers.user.UserMapper";
 	

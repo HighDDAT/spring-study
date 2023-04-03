@@ -35,13 +35,13 @@ public class UserLoginController {
     @RequestMapping(value = "/loginPost", method = RequestMethod.POST)
     public void loginPOST(LoginDTO loginDTO, HttpSession httpSession, Model model) throws Exception {
 
-        UserDTO userVO = userService.login(loginDTO);
+        UserDTO userDTO = userService.login(loginDTO);
 
-        if (userVO == null || !BCrypt.checkpw(loginDTO.getUserPw(), userVO.getUserPw())) {
+        if (userDTO == null || !BCrypt.checkpw(loginDTO.getUserPw(), userDTO.getUserPw())) {
             return;
         }
 
-        model.addAttribute("user", userVO);
+        model.addAttribute("user", userDTO);
 
     }
 
