@@ -5,19 +5,35 @@
     <a href="index3.html" class="brand-link">
       <img src="${cPath}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
            style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+      <span class="brand-text font-weight-light">Spring mvcBoard</span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
+    
+    
+      <!-- Sidebar user panel (optional) -->
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="${cPath}/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">코땃쥐</a>
-        </div>
+        <c:if test="${empty login}">
+	        <div class="image">
+	          <img src="${cPath}/dist/img/default-user-image.jpg" class="img-circle elevation-2" alt="User Image">
+	        </div>
+	        <div class="info">
+                <%-- Status --%>
+            	<a href="#"><i class="fa fa-circle text-danger"></i> Guest</a>
+	        </div>
+        </c:if>
+        
+        <c:if test="${not empty login}">
+	        <div class="image">
+	          <img src="${cPath}/dist/img/default-user-image.jpg" class="img-circle elevation-2" alt="User Image">
+	        </div>
+	        <div class="info">
+                <%-- Status --%>
+            	<a href="#"><i class="d-block"></i> ${login.userName}</a>
+	        </div>
+        </c:if>
       </div>
 
       <!-- Sidebar Menu -->
