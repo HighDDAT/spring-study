@@ -9,7 +9,8 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.spring.mypage.domain.ReplyDTO;
+import com.spring.mypage.reply.domain.ReplyDTO;
+import com.spring.mypage.reply.persistence.ReplyDAO;
 
 import lombok.extern.log4j.Log4j;
 

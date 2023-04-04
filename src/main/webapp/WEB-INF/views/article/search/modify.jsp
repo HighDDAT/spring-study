@@ -118,7 +118,7 @@ $(document).ready(function () {
     $(".listBtn").on("click", function () {
     	console.log('리스트 버튼 이벤트')
     	
-        self.location = "${cPath}/article/paging/search/list?page=${searchSection.page}"
+        self.location = "/article/paging/search/list?page=${searchSection.page}"
         		+"&perPageNum=${searchSection.perPageNum}"
 		        +"&searchType=${searchSection.searchType}"
 		        +"&keyword=${searchSection.keyword}";

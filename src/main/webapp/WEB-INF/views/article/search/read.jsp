@@ -5,7 +5,9 @@ This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
 <html lang="en">
+
 <%@ include file = "../../include/head.jsp" %>
+
 <body class="hold-transition skin-blue sidebar-mini layout-boxed">
 <div class="wrapper">
 
@@ -53,7 +55,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         
         <div class="card-footer">
             <div class="user-block">
-                <img class="img-circle img-bordered-sm" src="${cPath}/dist/img/user1-128x128.jpg" alt="user image">
+                <img class="img-circle img-bordered-sm" src="/dist/img/user1-128x128.jpg" alt="user image">
                 <span class="username">
                     <a href="#">${article.writer}</a>
                 </span>
@@ -99,32 +101,29 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	</div>
 	<!-- /.reply insert -->
 	
-	<!-- reply list & paging -->
-	<div class="card card-primary card-outline">
-		  <!--댓글 유무 / 댓글 갯수 / 댓글 펼치기, 접기-->
-		  <div class="card-header">
-			  <a href="" class="link-black text-lg"><i class="fas fa-comments margin-r-5 replyCount"></i></a>
-			    <div class="card-tools">
-			      <button type="button" class="btn primary"  data-widget="collapse">
-			          <i class="fa fa-plus"></i>
-			      </button>
-			    </div>
-			  </div>
-			  
-			  <!--댓글 목록-->
-			  <div class="card-body repliesDiv">
-			  
-			  </div>
-			  
-			  <!--댓글 페이징-->
-			  <div class="card-footer">
-			    <nav aria-label="Contacts Page Navigation">
-			    <ul class="pagination pagination-sm no-margin justify-content-center m-0">
-			
-			    </ul>
-			    </nav>
-		  </div>
-	</div>
+			 <div class="box box-success collapsed-box">
+                    <%--댓글 유무 / 댓글 갯수 / 댓글 펼치기, 접기--%>
+                    <div class="box-header with-border">
+                        <a class="link-black text-lg"><i class="fa fa-comments-o margin-r-5 replyCount"></i> </a>
+                        <div class="box-tools">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <%--댓글 목록--%>
+                    <div class="box-body repliesDiv">
+
+                    </div>
+                    <%--댓글 페이징--%>
+                    <div class="box-footer">
+                        <div class="text-center">
+                            <ul class="pagination pagination-sm no-margin">
+
+                            </ul>
+                        </div>
+                    </div>
+               </div>
         
         
         
@@ -197,7 +196,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     {{#each.}}
     <div class="post replyDiv" data-reply_no={{reply_no}}>
         <div class="user-block">
-            <img class="img-circle img-bordered-sm" src="${cPath}/dist/img/user1-128x128.jpg" alt="user image">
+            <img class="img-circle img-bordered-sm" src="/dist/img/user1-128x128.jpg" alt="user image">
             <span class="username">
                 <a href="#">{{reply_writer}}</a>
                 <a href="#" class="float-right btn-box-tool replyDelBtn" data-toggle="modal" data-target="#delModal">
@@ -224,7 +223,7 @@ $(document).ready(function () {
     $(".modBtn").on("click", function () {
     	console.log('수정 버튼 이벤트')
     	
-        formObj.attr("action", "${cPath}/article/paging/search/modify");
+        formObj.attr("action", "/article/paging/search/modify");
         formObj.attr("method", "get");
         formObj.submit();
     });
@@ -232,14 +231,14 @@ $(document).ready(function () {
     $(".delBtn").on("click", function () {
        console.log('삭제 버튼 이벤트')
     	
-       formObj.attr("action", "${cPath}/article/paging/search/remove");
+       formObj.attr("action", "/article/paging/search/remove");
        formObj.submit();
     });
 
     $(".listBtn").on("click", function () {
        console.log('목록 버튼 이벤트')    	
     	
-       formObj.attr("action", "${cPath}/article/paging/search/list");
+       formObj.attr("action", "/article/paging/search/list");
        formObj.attr("method", "get");
        formObj.submit();
     });
@@ -282,7 +281,7 @@ $(document).ready(function () {
 	}) // reply date end
 	
 	// reply list get
-	getReplies("${cPath}/replies/" + article_no + "/" + replyPageNum);
+	getReplies("/replies/" + article_no + "/" + replyPageNum);
 	
 	// reply list get function
 	function getReplies(repliesUri) {
@@ -353,7 +352,7 @@ $(document).ready(function () {
     $(".pagination").on("click", "li a", function (event) {
         event.preventDefault();
         replyPageNum = $(this).attr("href");
-        getReplies("${cPath}/replies/" + article_no + "/" + replyPageNum);
+        getReplies("/replies/" + article_no + "/" + replyPageNum);
     });
 	
 	// reply add click event
@@ -369,7 +368,7 @@ $(document).ready(function () {
 		// 입력처리 수행
 		$.ajax({
 			type : "post",
-			url : "${cPath}/replies/",
+			url : "/replies/",
 			headers : {
 				"Content-Type" : "application/json",
 				"X-HTTP-Method-Override" : "POST"
@@ -385,7 +384,7 @@ $(document).ready(function () {
 				if(result === "regSuccess") {
 					alert("리플 작성 성공");
 					replyPageNum = 1; // 페이지 1로 초기화
-					getReplies("${cPath}/replies/" + article_no + "/" + replyPageNum); // 리플 리스트 호출
+					getReplies("/replies/" + article_no + "/" + replyPageNum); // 리플 리스트 호출
 					reply_textObj.val("");   // text 인풋 공백처리
                     reply_writerObj.val("");   // writer 인풋 공백처리
 				}
@@ -412,7 +411,7 @@ $(document).ready(function () {
        
         $.ajax({
             type : "put",
-            url : "${cPath}/replies/" + reply_no,
+            url : "/replies/" + reply_no,
             headers : {
                 "Content-Type" : "application/json",
                 "X-HTTP-Method-Override" : "PUT"
@@ -425,7 +424,7 @@ $(document).ready(function () {
                 console.log("result : " + result);
                 if (result === "modSuccess") {
                     alert("리플 수정 완료");
-                    getReplies("${cPath}/replies/" + article_no + "/" + replyPageNum); // 댓글 목록 호출
+                    getReplies("/replies/" + article_no + "/" + replyPageNum); // 댓글 목록 호출
                     $("#modModal").modal("hide"); // modal 창 닫기
                 }
             } 
@@ -441,7 +440,7 @@ $(document).ready(function () {
 		
 		$.ajax({
 			type : "delete",
-			url : "${cPath}/replies/" + reply_no,
+			url : "/replies/" + reply_no,
 			headers : {
 				"Content-Type" : "application/json",
 				"X-HTTP-Method-Override" : "DELETE"
@@ -451,7 +450,7 @@ $(document).ready(function () {
 				console.log('실행 결과 : ' + result);
 				if(result === "delSuccess") {
 					alert("리플 삭제 완료");
-					getReplies("${cPath}/replies/" + article_no + "/" + replyPageNum); // 리플 리스트 호출
+					getReplies("/replies/" + article_no + "/" + replyPageNum); // 리플 리스트 호출
                     $("#delModal").modal("hide"); // modal 창 닫기
 				}
 			}

@@ -44,7 +44,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		if (userDTO != null) {
 			logger.info("=== new login success ===");
 			httpSession.setAttribute(LOGIN, userDTO);
-			response.sendRedirect("/mypage");
+			response.sendRedirect("/");
 			
 		}
 	}

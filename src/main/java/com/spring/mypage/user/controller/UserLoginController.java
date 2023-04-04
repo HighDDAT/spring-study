@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.spring.mypage.domain.LoginDTO;
-import com.spring.mypage.domain.UserDTO;
-import com.spring.mypage.service.UserService;
+import com.spring.mypage.user.domain.LoginDTO;
+import com.spring.mypage.user.domain.UserDTO;
+import com.spring.mypage.user.service.UserService;
 
 @Controller
 @RequestMapping("/user")

@@ -1,0 +1,121 @@
+package com.spring.mypage.article.controller;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+
+import javax.inject.Inject;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.spring.mypage.article.domain.ArticleDTO;
+import com.spring.mypage.article.service.ArticleService;
+import com.spring.mypage.commons.paging.PageMaker;
+import com.spring.mypage.commons.paging.Section;
+
+@Controller
+@RequestMapping("/article")
+public class ArticleController {
+
+	private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);
+	
+	private final ArticleService articleService;
+	
+	@Inject
+	public ArticleController(ArticleService articleService) {
+		this.articleService = articleService;
+	}
+	
+	// 등록 페이지 이동
+	@RequestMapping(value="/write", method=RequestMethod.GET)
+	public String writeGET() {
+		
+		logger.info("글 작성페이지 이동 GET");
+		
+		return "/article/write";
+	}
+	
+	// 등록 처리
+	@RequestMapping(value="/write", method=RequestMethod.POST)
+	public String writePOST(ArticleDTO articleDTO, 
+							RedirectAttributes redirectAttributes) throws Exception {
+		
+		logger.info("글 작성처리 POST");
+		logger.info(articleDTO.toString());
+		
+		articleService.create(articleDTO);
+		redirectAttributes.addFlashAttribute("msg", "regSuccess");
+		
+		return "redirect:/article/list";
+	}
+	
+	// 목록 페이지 이동
+	@RequestMapping(value="/list", method=RequestMethod.GET)
+	public String list(Model model) throws Exception {
+		
+		logger.info("목록 페이지 이동");
+		model.addAttribute("articles", articleService.listAll());
+		
+		return "/article/list";
+	}
+	
+	@RequestMapping(value="/listSection", method = RequestMethod.GET)
+	public String listSection(Model model, Section section) throws Exception {
+		logger.info("페이징목록 기준으로 이동");
+		model.addAttribute("article", articleService.listSection(section));
+		
+		return "/article/list_paging";
+	}
+	
+	// 조회 페이지 이동
+	@RequestMapping(value="/read", method=RequestMethod.GET)
+	public String read(@RequestParam("article_no") int article_no,
+						Model model) throws Exception {
+		logger.info("조회 페이지 이동");
+		model.addAttribute("article", articleService.read(article_no));
+		
+		return "/article/read";
+	}
+	
+	// 수정 페이지 이동
+	@RequestMapping(value="/modify", method=RequestMethod.GET)
+	public String modifyGET(@RequestParam("article_no") int article_no,
+							Model model) throws Exception {
+		
+		logger.info("수정 페이지 이동중 GET");
+		model.addAttribute("article", articleService.read(article_no));
+		
+		return "/article/modify";
+	}
+	
+	// 수정 처리
+	@RequestMapping(value="/modify", method=RequestMethod.POST)
+	public String modifyPOST(ArticleDTO articleDTO,
+							RedirectAttributes redirectAttributes) throws Exception {
+		
+		logger.info("수정 처리 POST");
+		articleService.update(articleDTO);
+		redirectAttributes.addFlashAttribute("msg", "modSuccess");
+		
+		return "redirect:/article/list";
+	}
+	
+	// 삭제 처리
+	@RequestMapping(value="/remove", method=RequestMethod.POST)
+	public String remove(@RequestParam("article_no") int article_no,
+						RedirectAttributes redirectAttributes) throws Exception {
+		
+		logger.info("삭제 처리 POST");
+		articleService.delete(article_no);
+		redirectAttributes.addFlashAttribute("msg", "delSuccess");
+		
+		return "redirect:/article/list";
+	}
+	
+}
